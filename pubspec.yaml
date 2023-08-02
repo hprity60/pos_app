@@ -7,8 +7,16 @@ environment:
   sdk: '>=3.0.5 <4.0.0'
 
 dependencies:
+  dio: ^5.1.1
+  dio_cache_interceptor: ^3.4.2
+  dio_smart_retry: ^5.0.0
+  equatable: ^2.0.5
+  
   flutter:
     sdk: flutter
+
+  flutter_bloc: ^8.1.2
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:
