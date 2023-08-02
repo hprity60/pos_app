@@ -1,42 +1,43 @@
-class UserModel {
-  final String token;
-  final String expires_in;
-  final String validTo;
-  final User user;
+class SignInResponseModel {
+  final Result result;
   final bool success;
   final String error;
 
-  UserModel({
-    required this.token,
-    required this.expires_in,
-    required this.validTo,
-    required this.user,
+  SignInResponseModel({
+    required this.result,
     required this.success,
     required this.error,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      token: json['result']['token'],
-      expires_in: json['expires_in'],
-      validTo: json['validTo'],
-      user: User.fromJson(json['result']['user']),
+  factory SignInResponseModel.fromJson(Map<String, dynamic> json) {
+    return SignInResponseModel(
+      result: Result.fromJson(json['result']),
       success: json['success'],
       error: json['error'],
     );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    return {
-      'result': {
-        'token': token,
-        'expires_in': expires_in,
-        'validTo': validTo,
-        'user': user.toJson(),
-      },
-      'success': success,
-      'error': error,
-    };
+class Result {
+  final String token;
+  final String expires_in;
+  final String validTo;
+  final User user;
+
+  Result({
+    required this.token,
+    required this.expires_in,
+    required this.validTo,
+    required this.user,
+  });
+
+  factory Result.fromJson(Map<String, dynamic> json) {
+    return Result(
+      token: json['token'],
+      expires_in: json['expires_in'],
+      validTo: json['validTo'],
+      user: User.fromJson(json['user']),
+    );
   }
 }
 
@@ -84,22 +85,5 @@ class User {
       regNo: json['regNo'],
       joinDate: json['joinDate'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'companyId': companyId,
-      'companyName': companyName,
-      'profilePicture': profilePicture,
-      'userGuidId': userGuidId,
-      'userIntId': userIntId,
-      'userGroupId': userGroupId,
-      'fullName': fullName,
-      'phone': phone,
-      'email': email,
-      'designation': designation,
-      'regNo': regNo,
-      'joinDate': joinDate,
-    };
   }
 }

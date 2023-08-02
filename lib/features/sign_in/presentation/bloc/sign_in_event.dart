@@ -6,3 +6,12 @@ abstract class SignInEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class LoggedInEvent extends SignInEvent {
+  final SignInRequestModel signInRequestModel;
+
+  const LoggedInEvent({required this.signInRequestModel});
+
+  @override
+  List<Object> get props => [signInRequestModel];
+}
