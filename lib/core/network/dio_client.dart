@@ -1,3 +1,4 @@
+import 'package:assignment_app/core/network/interceptor/token_interceptor.dart';
 import 'package:assignment_app/core/values/strings.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
@@ -14,6 +15,7 @@ class DioProvider {
     _dio.options.receiveTimeout = const Duration(seconds: 30);
     _dio.options.responseType = ResponseType.json;
     _dio.interceptors.addAll([
+      TokenInterceptor(),
       LogInterceptor(
         request: true,
         requestHeader: true,
