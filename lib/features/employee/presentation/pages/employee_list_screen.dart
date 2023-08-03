@@ -53,136 +53,144 @@ class EmployeeListScreen extends StatelessWidget {
             if (state is EmployeeListSuccessState) {
               final EmployeeResponseModel model = state.employeeResponseModel;
               int length = model.result.length;
-              return SafeArea(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    Text(
-                      "All Employee",
-                      style: textStyleF22W700(),
-                    ),
-                    const SizedBox(height: 20),
-                    Expanded(
-                      child: ListView.builder(
-                          itemCount: length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl:
-                                        model.result[index].profilePicture,
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(15)),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.transparent,
-                                          ),
-                                        ],
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.contain,
+              return RefreshIndicator(
+                onRefresh: () async {
+                  //_cmd = true;
+                  context.read<EmployeeListBloc>().add(
+                        GetEmployeeListEvent(),
+                      );
+                },
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      Text(
+                        "All Employee",
+                        style: textStyleF22W700(),
+                      ),
+                      const SizedBox(height: 20),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  children: [
+                                    // CachedNetworkImage(
+                                    //   imageUrl:
+                                    //       model.result[index].profilePicture,
+                                    //   imageBuilder: (context, imageProvider) =>
+                                    //       Container(
+                                    //     decoration: BoxDecoration(
+                                    //       borderRadius: const BorderRadius.all(
+                                    //           Radius.circular(15)),
+                                    //       boxShadow: const [
+                                    //         BoxShadow(
+                                    //           color: Colors.transparent,
+                                    //         ),
+                                    //       ],
+                                    //       image: DecorationImage(
+                                    //         image: imageProvider,
+                                    //         fit: BoxFit.contain,
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    //   placeholder: (context, url) =>
+                                    //       const CircularProgressIndicator(),
+                                    //   errorWidget: (context, url, error) =>
+                                    //       const Icon(Icons.error),
+                                    // ),
+                                    Image.network(
+                                        model.result[index].profilePicture),
+                                    const SizedBox(height: 20),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Full Name: ',
+                                          style: textStyleF18W600(),
                                         ),
-                                      ),
+                                        Text(
+                                          model.result[index].fullName,
+                                          style: textStyleF18W400(),
+                                        ),
+                                      ],
                                     ),
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                  ),
-                                  Image.network(
-                                      model.result[index].profilePicture),
-                                  const SizedBox(height: 20),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Full Name: ',
-                                        style: textStyleF18W600(),
-                                      ),
-                                      Text(
-                                        model.result[index].fullName,
-                                        style: textStyleF18W400(),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Email: ',
-                                        style: textStyleF18W600(),
-                                      ),
-                                      Text(
-                                        model.result[index].email,
-                                        style: textStyleF18W400(),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Phone: ',
-                                        style: textStyleF18W600(),
-                                      ),
-                                      Text(
-                                        model.result[index].phoneNumber,
-                                        style: textStyleF18W400(),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Sex: ',
-                                        style: textStyleF18W600(),
-                                      ),
-                                      Text(
-                                        model.result[index].sex,
-                                        style: textStyleF18W400(),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Designation: ',
-                                        style: textStyleF18W600(),
-                                      ),
-                                      Text(
-                                        model.result[index].designation,
-                                        style: textStyleF18W400(),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Joining Date: ',
-                                        style: textStyleF18W600(),
-                                      ),
-                                      Text(
-                                        DateFormatter.formatDateTimeApi(
-                                                model.result[index].joiningDate)
-                                            .split('T')[0],
-                                        style: textStyleF18W400(),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            );
-                          }),
-                    )
-                  ],
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Email: ',
+                                          style: textStyleF18W600(),
+                                        ),
+                                        Text(
+                                          model.result[index].email,
+                                          style: textStyleF18W400(),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Phone: ',
+                                          style: textStyleF18W600(),
+                                        ),
+                                        Text(
+                                          model.result[index].phoneNumber,
+                                          style: textStyleF18W400(),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Sex: ',
+                                          style: textStyleF18W600(),
+                                        ),
+                                        Text(
+                                          model.result[index].sex,
+                                          style: textStyleF18W400(),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Designation: ',
+                                          style: textStyleF18W600(),
+                                        ),
+                                        Text(
+                                          model.result[index].designation,
+                                          style: textStyleF18W400(),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'Joining Date: ',
+                                          style: textStyleF18W600(),
+                                        ),
+                                        Text(
+                                          DateFormatter.formatDateTimeApi(model
+                                                  .result[index].joiningDate)
+                                              .split('T')[0],
+                                          style: textStyleF18W400(),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                      )
+                    ],
+                  ),
                 ),
               );
             } else if (state is EmployeeListLoadingState) {
