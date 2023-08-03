@@ -14,17 +14,24 @@ part 'sign_in_state.dart';
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final SignInRepository signInRepository;
   String errorMessage = "";
+  late SignInResponseModel model;
   SignInBloc({required this.signInRepository}) : super(SignInInitial()) {
     on<LoggedInEvent>((event, emit) async {
       emit(SignInLoadingState());
       try {
-        final signInData = await signInRepository.signIn(
+        model = await signInRepository.signIn(
             signInRequestModel: event.signInRequestModel);
-        emit(SignInSuccessState(signInResponseModel: signInData));
-      } on DioException catch (e) {
-        errorMessage = e.error.toString();
+        if (model.success == true) {
+          emit(SignInSuccessState(signInResponseModel: model));
+        } else {
+          emit(SignInFailureState(
+            errorMessage: model.error,
+          ));
+        }
+      } on DioException {
+        errorMessage = model.error;
         emit(SignInFailureState(
-          errorMessage: errorMessage,
+          errorMessage: model.error,
         ));
       } catch (e) {
         // DebugPrint.print(e.toString());
