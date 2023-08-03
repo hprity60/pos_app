@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:assignment_app/features/employee/presentation/pages/employee_list_screen.dart';
 import 'package:assignment_app/features/sign_in/presentation/pages/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +83,9 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 40),
             Center(
               child: CustomButton(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, EmployeeListScreen.id);
+                },
                 isSelected: true,
                 btnColor: secondaryTextColor,
                 textColor: whiteColor,
