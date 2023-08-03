@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         alignment: Alignment.center,
-        width: 100,
+        width: 150,
         height: 45,
         decoration: BoxDecoration(
           color: btnColor,

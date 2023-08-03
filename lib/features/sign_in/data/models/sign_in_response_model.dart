@@ -11,7 +11,8 @@ class SignInResponseModel {
 
   factory SignInResponseModel.fromJson(Map<String, dynamic> json) {
     return SignInResponseModel(
-      result: Result.fromJson(json['result']),
+      result:
+          json['result'] != null ? Result.fromJson(json['result']) : Result(),
       success: json['success'],
       error: json['error'],
     );
@@ -19,16 +20,16 @@ class SignInResponseModel {
 }
 
 class Result {
-  final String token;
-  final String expires_in;
-  final String validTo;
-  final User user;
+  final String? token;
+  final String? expires_in;
+  final String? validTo;
+  final User? user;
 
   Result({
-    required this.token,
-    required this.expires_in,
-    required this.validTo,
-    required this.user,
+    this.token,
+    this.expires_in,
+    this.validTo,
+    this.user,
   });
 
   factory Result.fromJson(Map<String, dynamic> json) {
@@ -72,18 +73,18 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      companyId: json['companyId'],
-      companyName: json['companyName'],
-      profilePicture: json['profilePicture'],
-      userGuidId: json['userGuidId'],
-      userIntId: json['userIntId'],
-      userGroupId: json['userGroupId'],
-      fullName: json['fullName'],
-      phone: json['phone'],
-      email: json['email'],
-      designation: json['designation'],
-      regNo: json['regNo'],
-      joinDate: json['joinDate'],
+      companyId: json['companyId'] ?? "",
+      companyName: json['companyName'] ?? "",
+      profilePicture: json['profilePicture'] ?? "",
+      userGuidId: json['userGuidId'] ?? "",
+      userIntId: json['userIntId'] ?? "",
+      userGroupId: json['userGroupId'] ?? "",
+      fullName: json['fullName'] ?? "",
+      phone: json['phone'] ?? "",
+      email: json['email'] ?? "",
+      designation: json['designation'] ?? "",
+      regNo: json['regNo'] ?? "",
+      joinDate: json['joinDate'] ?? "",
     );
   }
 }

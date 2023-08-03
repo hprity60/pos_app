@@ -9,6 +9,7 @@ import 'package:assignment_app/features/sign_in/presentation/bloc/sign_in_bloc.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/arg_model/dashboard_arg_model.dart';
 import '../../../../core/values/form_validator.dart';
 import '../../../../core/values/my_snackbar.dart';
 import '../widgets/custom_text_field.dart';
@@ -51,7 +52,18 @@ class SignInScreen extends StatelessWidget {
                   ),
                 );
 
-              Navigator.pushNamed(context, HomeScreen.id);
+             Navigator.pushNamed(context, HomeScreen.id,
+                  arguments: DashboardArgModel(
+                      userName:
+                          state.signInResponseModel.result.user?.fullName ?? "",
+                      email: state.signInResponseModel.result.user?.email ?? "",
+                      phone: state.signInResponseModel.result.user?.phone ?? "",
+                      designation:
+                          state.signInResponseModel.result.user?.designation ??
+                              "",
+                      joinDate:
+                          state.signInResponseModel.result.user?.joinDate ??
+                              ""));
             }
           },
           child: SafeArea(
