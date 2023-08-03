@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
-
 textStyleF18W600({Color color = Colors.black}) => TextStyle(
       color: color,
       fontSize: 18,
       fontWeight: FontWeight.w600,
+    );
+
+textStyleF18W400({Color color = Colors.black}) => TextStyle(
+      color: color,
+      fontSize: 18,
+      fontWeight: FontWeight.w400,
     );
 
 textStyleF19W700({Color color = Colors.black}) => TextStyle(
@@ -30,4 +35,3 @@ textStyleF22W700({Color color = Colors.black}) => TextStyle(
       fontSize: 22,
       fontWeight: FontWeight.w700,
     );
-

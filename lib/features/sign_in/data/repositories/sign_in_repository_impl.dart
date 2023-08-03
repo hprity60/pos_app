@@ -23,25 +23,25 @@ class SignInRepositoryImpl implements SignInRepository {
         .write(key: AppStrings.token, value: signInResponseModel.result.token);
     SecureStorage().storage.write(
         key: AppStrings.fullName,
-        value: signInResponseModel.result.user.fullName);
+        value: signInResponseModel.result.user?.fullName);
     SecureStorage().storage.write(
         key: AppStrings.companyName,
-        value: signInResponseModel.result.user.companyName);
+        value: signInResponseModel.result.user?.companyName);
     SecureStorage().storage.write(
-        key: AppStrings.email, value: signInResponseModel.result.user.email);
+        key: AppStrings.email, value: signInResponseModel.result.user?.email);
     SecureStorage().storage.write(
-        key: AppStrings.phone, value: signInResponseModel.result.user.phone);
+        key: AppStrings.phone, value: signInResponseModel.result.user?.phone);
     SecureStorage().storage.write(
         key: AppStrings.designation,
-        value: signInResponseModel.result.user.designation);
+        value: signInResponseModel.result.user?.designation);
     SecureStorage().storage.write(
         key: AppStrings.joinDate,
-        value: signInResponseModel.result.user.joinDate);
+        value: signInResponseModel.result.user?.joinDate);
     SecureStorage().storage.write(
-        key: AppStrings.regNo, value: signInResponseModel.result.user.regNo);
+        key: AppStrings.regNo, value: signInResponseModel.result.user?.regNo);
     SecureStorage().storage.write(
         key: AppStrings.profilePicture,
-        value: signInResponseModel.result.user.profilePicture);
+        value: signInResponseModel.result.user?.profilePicture);
     return signInResponseModel;
   }
 }
