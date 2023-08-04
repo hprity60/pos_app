@@ -50,7 +50,7 @@ class EmployeeListScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           centerTitle: true,
           title: Text(
-            "Employee List",
+            "Employee Info",
             style: textStyleF19W700(),
           ),
         ),

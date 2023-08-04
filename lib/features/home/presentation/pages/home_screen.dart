@@ -58,9 +58,18 @@ class HomeScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 30),
             Center(
-              child: Text(
-                'User Info',
-                style: textStyleF22W700(),
+              child: Column(
+                children: [
+                  Text(
+                    'WELCOME',
+                    style: textStyleF22W700(),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    userName,
+                    style: textStyleF20W400(),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 20),
