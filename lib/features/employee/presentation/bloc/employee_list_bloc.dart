@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:assignment_app/features/employee/data/models/active_employee_list_response_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -22,6 +23,20 @@ class EmployeeListBloc extends Bloc<EmployeeListEvent, EmployeeListState> {
         final EmployeeResponseModel employeeData =
             await getEmployeeListRepository.getEmployeeList();
         emit(EmployeeListSuccessState(employeeResponseModel: employeeData));
+      } on DioException {
+        rethrow;
+      } catch (e) {
+        rethrow;
+      }
+    });
+
+    on<GetActiveEmployeeListEvent>((event, emit) async {
+      emit(EmployeeListLoadingState());
+
+      try {
+        final ActiveEmployeeListResponseModel activeEmployeeData =
+            await getEmployeeListRepository.getActiveEmployeeList();
+        emit(ActiveEmployeeListSuccessState(activeEmployeeListResponseModel: activeEmployeeData));
       } on DioException {
         rethrow;
       } catch (e) {

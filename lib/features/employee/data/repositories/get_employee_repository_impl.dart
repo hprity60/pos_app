@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:assignment_app/core/network/network_info.dart';
 import 'package:assignment_app/features/employee/data/datasources/local_data_source/get_employee_local_data_source.dart';
+import 'package:assignment_app/features/employee/data/models/active_employee_list_response_model.dart';
 import 'package:assignment_app/features/employee/data/models/employee_list_response_model.dart';
 import 'package:assignment_app/features/employee/domain/repositories/get_remote_repository.dart';
 import 'package:dio/dio.dart';
@@ -33,6 +34,26 @@ class GetEmployeeListRepositoryImpl extends GetEmployeeListRepository {
     } else {
       final cachedEmployee = getEmployeeLocalDataSource.getEmployees();
       return cachedEmployee;
+    }
+  }
+
+  @override
+  Future<ActiveEmployeeListResponseModel> getActiveEmployeeList() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final ActiveEmployeeListResponseModel activeEmployeeResponseModel =
+            await getEmployeeRemoteDataSource.getActiveEmployeeList();
+        await getEmployeeLocalDataSource.setActiveEmployees(
+            model: activeEmployeeResponseModel);
+        return activeEmployeeResponseModel;
+      } on DioException {
+        rethrow;
+      } catch (e) {
+        rethrow;
+      }
+    } else {
+      final cachedActiveEmployee = getEmployeeLocalDataSource.getActiveEmployees();
+      return cachedActiveEmployee;
     }
   }
 }

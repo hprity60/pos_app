@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 class ErrorInterceptor extends InterceptorsWrapper {
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     late String errorMessage;
 
     if (err.type == DioExceptionType.connectionTimeout ||

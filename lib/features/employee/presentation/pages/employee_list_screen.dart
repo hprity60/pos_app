@@ -6,19 +6,22 @@ import 'package:assignment_app/features/employee/data/datasources/local_data_sou
 import 'package:assignment_app/features/employee/data/models/employee_list_response_model.dart';
 import 'package:assignment_app/features/employee/data/repositories/get_employee_repository_impl.dart';
 import 'package:assignment_app/features/employee/presentation/bloc/employee_list_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../data/datasources/remote_data_source/get_employee_remote_data_source_impl.dart';
+import '../../data/models/active_employee_list_response_model.dart';
 
 class EmployeeListScreen extends StatelessWidget {
   static const id = "employee_list_screen";
   EmployeeListScreen({super.key});
 
   String fullName = "";
+  late EmployeeResponseModel employeeList;
+  ActiveEmployeeListResponseModel? activeEmployeeList;
+  String activeEmployeeStatus = "";
 
   @override
   Widget build(BuildContext context) {
@@ -35,24 +38,13 @@ class EmployeeListScreen extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text("Employee List"),
-          actions: const [
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(Icons.filter_list))
-          ],
         ),
-        body: BlocConsumer<EmployeeListBloc, EmployeeListState>(
-          listener: (context, state) {
-            if (state is EmployeeListSuccessState) {
-              final EmployeeResponseModel model = state.employeeResponseModel;
-            }
-          },
+        body: BlocBuilder<EmployeeListBloc, EmployeeListState>(
           builder: (context, state) {
-            print("Current State >> $state");
-
+            print("Current state >> $state");
             if (state is EmployeeListSuccessState) {
-              final EmployeeResponseModel model = state.employeeResponseModel;
-              int length = model.result.length;
+              employeeList = state.employeeResponseModel;
+              int length = employeeList.result.length;
               return RefreshIndicator(
                 onRefresh: () async {
                   //_cmd = true;
@@ -64,9 +56,43 @@ class EmployeeListScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       const SizedBox(height: 20),
-                      Text(
-                        "All Employee",
-                        style: textStyleF22W700(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              "All Employees",
+                              style: textStyleF22W700(),
+                            ),
+                           const Spacer(),
+                            PopupMenuButton<String>(
+                              onSelected: (value) {
+                                print("Selected value: $value");
+
+                                if (value == "Out") {
+                                  context.read<EmployeeListBloc>().add(
+                                        GetEmployeeListEvent(),
+                                      );
+                                } else if (value == "In") {
+                                  context.read<EmployeeListBloc>().add(
+                                        GetActiveEmployeeListEvent(),
+                                      );
+                                }
+                              },
+                              itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<String>>[
+                                const PopupMenuItem<String>(
+                                  value: "Out",
+                                  child: Text('All'),
+                                ),
+                                const PopupMenuItem<String>(
+                                  value: "In",
+                                  child: Text('Active'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 20),
                       Expanded(
@@ -78,32 +104,8 @@ class EmployeeListScreen extends StatelessWidget {
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(
                                   children: [
-                                    // CachedNetworkImage(
-                                    //   imageUrl:
-                                    //       model.result[index].profilePicture,
-                                    //   imageBuilder: (context, imageProvider) =>
-                                    //       Container(
-                                    //     decoration: BoxDecoration(
-                                    //       borderRadius: const BorderRadius.all(
-                                    //           Radius.circular(15)),
-                                    //       boxShadow: const [
-                                    //         BoxShadow(
-                                    //           color: Colors.transparent,
-                                    //         ),
-                                    //       ],
-                                    //       image: DecorationImage(
-                                    //         image: imageProvider,
-                                    //         fit: BoxFit.contain,
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    //   placeholder: (context, url) =>
-                                    //       const CircularProgressIndicator(),
-                                    //   errorWidget: (context, url, error) =>
-                                    //       const Icon(Icons.error),
-                                    // ),
-                                    Image.network(
-                                        model.result[index].profilePicture),
+                                    Image.network(employeeList
+                                        .result[index].profilePicture),
                                     const SizedBox(height: 20),
                                     Row(
                                       children: [
@@ -112,7 +114,7 @@ class EmployeeListScreen extends StatelessWidget {
                                           style: textStyleF18W600(),
                                         ),
                                         Text(
-                                          model.result[index].fullName,
+                                          employeeList.result[index].fullName,
                                           style: textStyleF18W400(),
                                         ),
                                       ],
@@ -125,7 +127,7 @@ class EmployeeListScreen extends StatelessWidget {
                                           style: textStyleF18W600(),
                                         ),
                                         Text(
-                                          model.result[index].email,
+                                          employeeList.result[index].email,
                                           style: textStyleF18W400(),
                                         ),
                                       ],
@@ -138,7 +140,8 @@ class EmployeeListScreen extends StatelessWidget {
                                           style: textStyleF18W600(),
                                         ),
                                         Text(
-                                          model.result[index].phoneNumber,
+                                          employeeList
+                                              .result[index].phoneNumber,
                                           style: textStyleF18W400(),
                                         ),
                                       ],
@@ -151,7 +154,7 @@ class EmployeeListScreen extends StatelessWidget {
                                           style: textStyleF18W600(),
                                         ),
                                         Text(
-                                          model.result[index].sex,
+                                          employeeList.result[index].sex,
                                           style: textStyleF18W400(),
                                         ),
                                       ],
@@ -164,7 +167,8 @@ class EmployeeListScreen extends StatelessWidget {
                                           style: textStyleF18W600(),
                                         ),
                                         Text(
-                                          model.result[index].designation,
+                                          employeeList
+                                              .result[index].designation,
                                           style: textStyleF18W400(),
                                         ),
                                       ],
@@ -177,8 +181,9 @@ class EmployeeListScreen extends StatelessWidget {
                                           style: textStyleF18W600(),
                                         ),
                                         Text(
-                                          DateFormatter.formatDateTimeApi(model
-                                                  .result[index].joiningDate)
+                                          DateFormatter.formatDateTimeApi(
+                                                  employeeList.result[index]
+                                                      .joiningDate)
                                               .split('T')[0],
                                           style: textStyleF18W400(),
                                         ),
@@ -200,6 +205,97 @@ class EmployeeListScreen extends StatelessWidget {
             } else if (state is EmployeeListFailureState) {
               return const Center(
                 child: Text("Data not found"),
+              );
+            } else if (state is ActiveEmployeeListSuccessState) {
+              activeEmployeeList = state.activeEmployeeListResponseModel;
+
+              return RefreshIndicator(
+                onRefresh: () async {
+                  //_cmd = true;
+                  context.read<EmployeeListBloc>().add(
+                        GetActiveEmployeeListEvent(),
+                      );
+                },
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Active Employees",
+                              style: textStyleF22W700(),
+                            ),
+                            const Spacer(),
+                            PopupMenuButton<String>(
+                              onSelected: (value) {
+                                print("Selected value: $value");
+
+                                if (value == "Out") {
+                                  context.read<EmployeeListBloc>().add(
+                                        GetEmployeeListEvent(),
+                                      );
+                                } else if (value == "In") {
+                                  context.read<EmployeeListBloc>().add(
+                                        GetActiveEmployeeListEvent(),
+                                      );
+                                }
+                              },
+                              itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<String>>[
+                                const PopupMenuItem<String>(
+                                  value: "Out",
+                                  child: Text('All'),
+                                ),
+                                const PopupMenuItem<String>(
+                                  value: "In",
+                                  child: Text('Active'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      activeEmployeeList?.result != null
+                          ? Expanded(
+                              child: ListView.builder(
+                                  itemCount: activeEmployeeList?.result.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Office Status: ',
+                                                style: textStyleF18W600(),
+                                              ),
+                                              Text(
+                                                activeEmployeeList
+                                                        ?.result[index]
+                                                        .officeStatus ??
+                                                    "",
+                                                style: textStyleF18W400(),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 10),
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                            )
+                          : const Center(
+                              child: Text('Data Not Found'),
+                            )
+                    ],
+                  ),
+                ),
               );
             }
             return Container();
