@@ -18,11 +18,16 @@ A new Flutter project.
 
 
 2. Dashboard screen shown logged in user info, logout button and all employee list button
-![image](https://github.com/hprity60/pos_app/assets/104090144/438fa72d-8c20-471d-b66d-ca6059d626a5)
+![image](https://github.com/hprity60/pos_app/assets/104090144/51c36562-4a1d-4516-aa98-daed4f98dcc7)
+
 
 
 3. All Employee data shown using relevant API and added filter option 
-![image](https://github.com/hprity60/pos_app/assets/104090144/f9e521e7-d3f2-49f8-a278-942a9d18ae14)
+![image](https://github.com/hprity60/pos_app/assets/104090144/d7086518-7efc-4d6e-b1da-0b69ef920669)
 
 
-..... **End** ......
+
+
+
+
+                                                       ..... **End** ......
