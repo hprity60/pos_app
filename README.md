@@ -2,6 +2,10 @@
 
 A new Flutter project.
 
+Flutter version: 3.0.6
+
+Features lists:
+
 Sign in Screen (Error message / success message shown on snackbar)
 ![image](https://github.com/hprity60/pos_app/assets/104090144/b52c08f7-ce0d-4610-866d-0948de17ca6a)
 
