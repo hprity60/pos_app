@@ -1,5 +1,6 @@
 import 'package:assignment_app/core/network/dio_client.dart';
 import 'package:assignment_app/core/network/network_info.dart';
+import 'package:assignment_app/core/values/app_colors.dart';
 import 'package:assignment_app/core/values/date_formatter.dart';
 import 'package:assignment_app/core/values/text_styles.dart';
 import 'package:assignment_app/features/employee/data/datasources/local_data_source/get_employee_local_data_source_impl.dart';
@@ -35,9 +36,23 @@ class EmployeeListScreen extends StatelessWidget {
               networkInfo: NetworkInfoImpl(InternetConnectionChecker())))
         ..add(GetEmployeeListEvent()),
       child: Scaffold(
+        backgroundColor: borderColor,
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
           centerTitle: true,
-          title: const Text("Employee List"),
+          title: Text(
+            "Employee List",
+            style: textStyleF19W700(),
+          ),
         ),
         body: BlocBuilder<EmployeeListBloc, EmployeeListState>(
           builder: (context, state) {
@@ -64,7 +79,7 @@ class EmployeeListScreen extends StatelessWidget {
                               "All Employees",
                               style: textStyleF22W700(),
                             ),
-                           const Spacer(),
+                            const Spacer(),
                             PopupMenuButton<String>(
                               onSelected: (value) {
                                 print("Selected value: $value");
@@ -104,90 +119,110 @@ class EmployeeListScreen extends StatelessWidget {
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(
                                   children: [
-                                    Image.network(employeeList
-                                        .result[index].profilePicture),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(150),
+                                      child: Image.network(
+                                        employeeList
+                                            .result[index].profilePicture,
+                                        height: 250,
+                                      ),
+                                    ),
                                     const SizedBox(height: 20),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Full Name: ',
-                                          style: textStyleF18W600(),
-                                        ),
-                                        Text(
-                                          employeeList.result[index].fullName,
-                                          style: textStyleF18W400(),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Email: ',
-                                          style: textStyleF18W600(),
-                                        ),
-                                        Text(
-                                          employeeList.result[index].email,
-                                          style: textStyleF18W400(),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Phone: ',
-                                          style: textStyleF18W600(),
-                                        ),
-                                        Text(
-                                          employeeList
-                                              .result[index].phoneNumber,
-                                          style: textStyleF18W400(),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Sex: ',
-                                          style: textStyleF18W600(),
-                                        ),
-                                        Text(
-                                          employeeList.result[index].sex,
-                                          style: textStyleF18W400(),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Designation: ',
-                                          style: textStyleF18W600(),
-                                        ),
-                                        Text(
-                                          employeeList
-                                              .result[index].designation,
-                                          style: textStyleF18W400(),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Joining Date: ',
-                                          style: textStyleF18W600(),
-                                        ),
-                                        Text(
-                                          DateFormatter.formatDateTimeApi(
+                                    Card(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Full Name: ',
+                                                  style: textStyleF18W600(),
+                                                ),
+                                                Text(
+                                                  employeeList
+                                                      .result[index].fullName,
+                                                  style: textStyleF18W400(),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Email: ',
+                                                  style: textStyleF18W600(),
+                                                ),
+                                                Text(
+                                                  employeeList
+                                                      .result[index].email,
+                                                  style: textStyleF18W400(),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Phone: ',
+                                                  style: textStyleF18W600(),
+                                                ),
+                                                Text(
                                                   employeeList.result[index]
-                                                      .joiningDate)
-                                              .split('T')[0],
-                                          style: textStyleF18W400(),
+                                                      .phoneNumber,
+                                                  style: textStyleF18W400(),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Sex: ',
+                                                  style: textStyleF18W600(),
+                                                ),
+                                                Text(
+                                                  employeeList
+                                                      .result[index].sex,
+                                                  style: textStyleF18W400(),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Designation: ',
+                                                  style: textStyleF18W600(),
+                                                ),
+                                                Text(
+                                                  employeeList.result[index]
+                                                      .designation,
+                                                  style: textStyleF18W400(),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Joining Date: ',
+                                                  style: textStyleF18W600(),
+                                                ),
+                                                Text(
+                                                  DateFormatter
+                                                          .formatDateTimeApi(
+                                                              employeeList
+                                                                  .result[index]
+                                                                  .joiningDate)
+                                                      .split('T')[0],
+                                                  style: textStyleF18W400(),
+                                                ),
+                                              ],
+                                            )
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     )
                                   ],
                                 ),

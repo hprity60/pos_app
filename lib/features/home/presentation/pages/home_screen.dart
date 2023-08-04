@@ -29,24 +29,32 @@ class HomeScreen extends StatelessWidget {
     final formattedDate = joinDate.split('T00:00:00')[0];
 
     return Scaffold(
+      backgroundColor: borderColor,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
         leading: const SizedBox(),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.black,
+            ),
             onPressed: () {
               Navigator.pushNamed(context, SignInScreen.id);
             },
           )
         ],
-        title: const Text('DashBoard'),
+        title: Text(
+          'DashBoard',
+          style: textStyleF19W700(),
+        ),
       ),
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 30),
             Center(
@@ -56,29 +64,40 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              'Username: $userName',
-              style: textStyleF18W400(),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Email: $email',
-              style: textStyleF18W400(),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Phone: $phone',
-              style: textStyleF18W400(),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Designation: $designation',
-              style: textStyleF18W400(),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Joining Date: $formattedDate',
-              style: textStyleF18W400(),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Username: $userName',
+                      style: textStyleF18W400(),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Email: $email',
+                      style: textStyleF18W400(),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Phone: $phone',
+                      style: textStyleF18W400(),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Designation: $designation',
+                      style: textStyleF18W400(),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Joining Date: $formattedDate',
+                      style: textStyleF18W400(),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 40),
             Center(
