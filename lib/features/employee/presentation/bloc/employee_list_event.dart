@@ -11,3 +11,8 @@ class GetEmployeeListEvent extends EmployeeListEvent {
   @override
   List<Object> get props => [];
 }
+
+class GetActiveEmployeeListEvent extends EmployeeListEvent {
+  @override
+  List<Object> get props => [];
+}

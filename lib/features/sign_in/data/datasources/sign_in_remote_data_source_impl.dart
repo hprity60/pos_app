@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:assignment_app/core/network/api_endpoint.dart';
-import 'package:assignment_app/core/values/strings.dart';
 import 'package:dio/dio.dart';
 
 import 'package:assignment_app/features/sign_in/data/datasources/sign_in_remote_data_source.dart';

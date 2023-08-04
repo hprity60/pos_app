@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'employee_list_bloc.dart';
 
 abstract class EmployeeListState extends Equatable {
@@ -16,6 +17,16 @@ class EmployeeListSuccessState extends EmployeeListState {
 
   @override
   List<Object> get props => [employeeResponseModel];
+}
+
+class ActiveEmployeeListSuccessState extends EmployeeListState {
+  final ActiveEmployeeListResponseModel activeEmployeeListResponseModel;
+  const ActiveEmployeeListSuccessState({
+    required this.activeEmployeeListResponseModel,
+  });
+
+  @override
+  List<Object> get props => [activeEmployeeListResponseModel];
 }
 
 class EmployeeListLoadingState extends EmployeeListState {

@@ -70,7 +70,7 @@ class SignInScreen extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
                   children: [
                     const SizedBox(height: 70),
