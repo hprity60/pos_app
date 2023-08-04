@@ -52,7 +52,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                 );
 
-             Navigator.pushNamed(context, HomeScreen.id,
+              Navigator.pushNamed(context, HomeScreen.id,
                   arguments: DashboardArgModel(
                       userName:
                           state.signInResponseModel.result.user?.fullName ?? "",
@@ -70,10 +70,11 @@ class SignInScreen extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 70),
                     Text(
                       "Login",
                       style: textStyleF20W400(),
