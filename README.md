@@ -10,3 +10,4 @@ Dashboard screen shown logged in user info, logout button and all employee list 
 
 All Employee data shown using relevant API and added filter option 
 ![Uploading image.png…]()
+
