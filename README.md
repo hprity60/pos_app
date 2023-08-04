@@ -14,12 +14,15 @@ A new Flutter project.
 **Features Lists:**
 
 1. Sign in Screen (Error message / success message shown on snackbar)
-![image](https://github.com/hprity60/pos_app/assets/104090144/b52c08f7-ce0d-4610-866d-0948de17ca6a)
+![image](https://github.com/hprity60/pos_app/assets/104090144/feeecf10-7879-406c-9e14-d69b1235b99c)
+
 
 2. Dashboard screen shown logged in user info, logout button and all employee list button
-![image](https://github.com/hprity60/pos_app/assets/104090144/d339a256-5ede-4ef9-88f7-eec7d88eee6b)
+![image](https://github.com/hprity60/pos_app/assets/104090144/438fa72d-8c20-471d-b66d-ca6059d626a5)
+
 
 3. All Employee data shown using relevant API and added filter option 
-![image](https://github.com/hprity60/pos_app/assets/104090144/01c953fa-21a5-4fa5-a712-bfbf298e1d64)
+![image](https://github.com/hprity60/pos_app/assets/104090144/f9e521e7-d3f2-49f8-a278-942a9d18ae14)
+
 
 ..... **End** ......
